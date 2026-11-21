@@ -3,24 +3,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('dotenv').config();
 
-// Safe config loading
-let config;
-try {
-  config = require('./config.json');
-} catch (err) {
-  console.warn('config.json not found — using defaults');
-  config = {
-    embedColor: '#ef4444',
-    botName: 'RatzBot',
-    gameName: 'RATZ',
-    welcomeChannelName: 'welcome',
-    rulesChannelName: 'rules',
-    announcementChannelName: 'announcements',
-    apiPort: process.env.API_PORT || 10000,
-    apiSecret: process.env.API_SECRET || 'change-this'
-  };
-}
-
+const config = require('./config.json');
 const { createApiServer } = require('./api/server');
 
 const client = new Client({
@@ -69,8 +52,10 @@ for (const file of eventFiles) {
 }
 
 // Start API after bot is ready
+let api = null;
+
 client.once(Events.ClientReady, () => {
-  const api = createApiServer(client, config);
+  api = createApiServer(client, config);
   client.api = api;
 });
 

@@ -1,0 +1,10 @@
+{
+  "embedColor": "#ef4444",
+  "botName": "RatzBot",
+  "gameName": "RATZ",
+  "welcomeChannelName": "welcome",
+  "rulesChannelName": "rules",
+  "announcementChannelName": "announcements",
+  "apiPort": 3000,
+  "apiSecret": "change-this-to-a-long-random-secret"
+}
