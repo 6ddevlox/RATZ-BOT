@@ -3,6 +3,30 @@ const fs = require('node:fs');
 const path = require('node:path');
 require('dotenv').config();
 
+// Safe config loading
+let config;
+try {
+  config = require('./config.json');
+} catch (err) {
+  console.warn('config.json not found — using defaults');
+  config = {
+    embedColor: '#ef4444',
+    botName: 'RatzBot',
+    gameName: 'RATZ',
+    welcomeChannelName: 'welcome',
+    rulesChannelName: 'rules',
+    announcementChannelName: 'announcements',
+    apiPort: process.env.API_PORT || 10000,
+    apiSecret: process.env.API_SECRET || 'change-this'
+  };
+}
+
+const { createApiServer } = require('./api/server');
+const { Client, Collection, Events, GatewayIntentBits, Partials, EmbedBuilder } = require('discord.js');
+const fs = require('node:fs');
+const path = require('node:path');
+require('dotenv').config();
+
 const config = require('./config.json');
 const { createApiServer } = require('./api/server');
 
