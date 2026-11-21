@@ -22,13 +22,6 @@ try {
 }
 
 const { createApiServer } = require('./api/server');
-const { Client, Collection, Events, GatewayIntentBits, Partials, EmbedBuilder } = require('discord.js');
-const fs = require('node:fs');
-const path = require('node:path');
-require('dotenv').config();
-
-const config = require('./config.json');
-const { createApiServer } = require('./api/server');
 
 const client = new Client({
   intents: [
@@ -76,10 +69,8 @@ for (const file of eventFiles) {
 }
 
 // Start API after bot is ready
-let api = null;
-
 client.once(Events.ClientReady, () => {
-  api = createApiServer(client, config);
+  const api = createApiServer(client, config);
   client.api = api;
 });
 
